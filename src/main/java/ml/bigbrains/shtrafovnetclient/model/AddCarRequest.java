@@ -1,11 +1,13 @@
 package ml.bigbrains.shtrafovnetclient.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-@JsonIgnoreProperties(value = { "companyId" })
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(value = { "requestUrl", "companyId" })
 public class AddCarRequest implements GenericRequest {
     private String requestUrl = "v3/companies/{company_id}/cars";
     private Long companyId;

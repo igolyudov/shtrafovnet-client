@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ml.bigbrains</groupId>
 	<artifactId>shtrafovnet-client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>shtrafovnet-client</name>
 	<description>API client for shtrafovnet V3</description>
