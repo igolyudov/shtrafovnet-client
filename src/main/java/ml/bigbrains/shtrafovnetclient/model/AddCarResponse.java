@@ -3,8 +3,10 @@ package ml.bigbrains.shtrafovnetclient.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
+@ToString(callSuper = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AddCarResponse extends GenericResponse {
     private Long id;
