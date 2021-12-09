@@ -73,6 +73,27 @@ public class ShtrafovnetApiClient {
         return response;
     }
 
+    public OwnerDetails createOwner(String token, CreateOwnersRequest request)
+    {
+        log.debug("post create owners with request: {}",request);
+        OwnerDetails response = postRequest(request.getRequestUrl(), token, request, OwnerDetails.class);
+        return response;
+    }
+
+    public OwnersReponse getOwners(String token, OwnersRequest request)
+    {
+        log.debug("get owners with request: {}",request);
+        OwnersReponse response = getRequest(request.getRequestUrl(),token, request.getParams(), OwnersReponse.class);
+        return response;
+    }
+
+    public DelOwnersResponse deleteOwners(String token, DelOwnersRequest request)
+    {
+        log.debug("delete owners with request: {}",request);
+        DelOwnersResponse response = deleteRequest(request.getRequestUrl(), token, DelOwnersResponse.class);
+        return response;
+    }
+
     private <T> T getRequest(String url, String token, Map<String, String> params, Class<T> responseClass) {
 
         HttpUrl.Builder requestUrl = HttpUrl.parse(baseUrl+url).newBuilder();
@@ -148,5 +169,38 @@ public class ShtrafovnetApiClient {
             return null;
         }
     }
+
+    private <T> T deleteRequest(String url, String token, Class<T> responseClass) {
+
+        HttpUrl.Builder requestUrl = HttpUrl.parse(baseUrl+url).newBuilder();
+
+        okhttp3.Request request = new Request.Builder()
+                .url(requestUrl.build())
+                .delete()
+                .header("content-type","application/json")
+                .header("accept","application/json")
+                .header("Authorization","Bearer "+token)
+                .build();
+        log.debug("TOKEN: {}",token);
+        log.debug("REQUEST: {}",request);
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful())
+            {
+                log.warn("Response is not success. Response code: {}",response.code());
+            }
+            return mapper.readValue(Objects.requireNonNull(response.body()).string(), responseClass);
+        }
+        catch (NullPointerException e)
+        {
+            log.error("Empty response body after request to {}",url);
+            return null;
+        }
+        catch (IOException e)
+        {
+            log.error("Error in getRequest to {}",url,e);
+            return null;
+        }
+    }
+
 
 }
