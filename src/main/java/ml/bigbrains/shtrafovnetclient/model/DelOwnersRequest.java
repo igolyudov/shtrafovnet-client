@@ -20,6 +20,6 @@ public class DelOwnersRequest implements GenericRequest {
 
     public String getRequestUrl()
     {
-        return requestUrl.replaceAll("\\{company_id\\}",Long.toString(companyId)).replaceAll("\\{owner_id\\}","owner_id");
+        return requestUrl.replaceAll("\\{company_id\\}",Long.toString(companyId)).replaceAll("\\{owner_id\\}",ownerId);
     }
 }
