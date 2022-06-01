@@ -99,7 +99,16 @@ public class ShtrafovnetApiClient {
         HttpUrl.Builder requestUrl = HttpUrl.parse(baseUrl+url).newBuilder();
 
         for(Map.Entry<String, String> param : params.entrySet()) {
-            requestUrl.addQueryParameter(param.getKey(),param.getValue());
+            if(param.getValue().contains(","))
+            {
+                String [] values = param.getValue().split(",");
+                for(String value: values)
+                {
+                    requestUrl.addQueryParameter(param.getKey(),value);
+                }
+            }
+            else
+                requestUrl.addQueryParameter(param.getKey(),param.getValue());
         }
 
         okhttp3.Request request = new Request.Builder()
